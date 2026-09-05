@@ -28,6 +28,13 @@
 
 <一段话讲为什么交接 / 下一步要做什么>
 
+## 派发瑕疵反向纠错（如适用）
+
+implementer 接单后，发现 dispatch 与现状不符时**必填**：
+- 派发单哪条与现状不符：<引用 dispatch 段>
+- implementer 的判断依据：<文件路径 + commit hash + 当前内容>
+- main-designer 是否接受纠错：<待 main-designer 验收时回填>
+
 ## 接方确认
 
 - [ ] 已读交接材料

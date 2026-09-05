@@ -12,6 +12,21 @@
 **任务描述**：
 <一段话讲清任务目标 / 边界 / 交付物>
 
+**开工前核对清单**（main-designer 派发前必查 4 项）：
+- [ ] 必读现状文件：<列具体文件，不要按单子规范推断>
+- [ ] 必查基线 PASS 数：<跑基线测试拿当前值，写到 §验收>
+- [ ] 必查红线文件状态：<done/ vs pending/，避免派已归档单>
+- [ ] 必查文件所有权清单：<含 autotest 前置数据文件，由 implementer 按项目填>
+
+**测试员模式要求**（推荐补字段，可选）：
+main-designer 指定 implementer 走 A / B / C 中哪种方式跑测试：
+- A：implementer 自跑 autotest
+- B：implementer 派独立验证岗 subagent 跑测试
+- C：implementer 用 Agent 工具派 subagent 跑测试
+
+implementer 采字段：开始时间 / 命令 / PASS-FAIL 数 / 结束时间 / 总耗时 / subagent 启停耗时 / 主观感受
+写进 handoff 的 §测试员耗时 段。
+
 **任务凭证**：
 - REQ 单：REQ-<id>.md
 - DESIGN 文档：DESIGN-<id>.md（如有）
