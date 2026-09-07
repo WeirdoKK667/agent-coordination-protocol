@@ -1,5 +1,7 @@
 # Conway's Law + Inverse Conway Maneuver（references/conway-inverse-maneuver.md）
 
+> ⚠ **未经实战验证**（截至 2026-09-08）。本文件描述的机制在唯一试用项目里从未触发——该项目规模为 1 人 + 2 终端 + 3 身份卡，按 SKILL.md §0 原则 5 直接落进小项目旁路模式。小项目可跳过本文件。
+
 > 我们的"项目结构 = 模块清单 + 协议 + 根结构"输入锚点 = Inverse Conway Maneuver 的工程化版本。
 
 ## Conway's Law（1968）
@@ -21,7 +23,7 @@
 
 **对应本 skill**：
 - 输入"项目结构（模块清单 / 协议 / 根结构）" → 实际是"目标代码结构"
-- 输出 IDENTITY 卡 → 实际是"派生出的 agent / 组织"
+- 输出 身份卡 → 实际是"派生出的 agent / 组织"
 - 因此本 skill 的整套流程 = Inverse Conway 的工程化
 
 ## 实施步骤

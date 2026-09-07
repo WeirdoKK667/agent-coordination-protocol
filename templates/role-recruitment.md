@@ -22,7 +22,7 @@
      a. main 可主动调整上限（理由写 PR 描述）
      b. 或用户调用 skill 时特别注明不硬
      c. 否则必须合并或拒绝招新
-5. 用 templates/identity-card.md 渲染 IDENTITY-<name>.md
+5. 用 templates/identity-card.md 渲染 id-card-<昵称>.md
 6. 若涉及验证/测试，把 templates/test-credibility.md 原样嵌入
 7. 在登记表加条目（走 PR，templates/registry-pr-template.md）
 8. 设重议日（每 4 周）
@@ -37,13 +37,13 @@
 
 每个类别附：
 - 典型职责范围
-- IDENTITY 字段提示
+- 身份卡字段提示
 - 是否触发职责隔离原则（仅验证类）
-- 交叉引用「上游岗：IDENTITY-main.md」
+- 交叉引用「上游岗：id-card-main-designer.md」
 
 ## 招后如何认领
 
-- IDENTITY-<name>.md 顶部加交叉引用行"上游岗：IDENTITY-main.md"
+- id-card-<昵称>.md 顶部加交叉引用行"上游岗：id-card-main-designer.md"
 - 在占位登记表把状态从 [空] 改 [招]
 - 走 GitHub PR + reviewer approve（templates/registry-pr-template.md）
 - 接替者必须 ≥ 2（v6 bus factor）——若 < 2 触发招人或拆分

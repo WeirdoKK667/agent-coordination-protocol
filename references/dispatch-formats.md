@@ -9,13 +9,13 @@
 - main 与目标 agent 不在同一进程
 
 **怎么用**：
-1. main 生成派发材料（必含任务描述 / 目标岗 IDENTITY 路径 / read 契约缩小版 / REQ-DESIGN 引用）
+1. main 生成派发材料（必含任务描述 / 目标岗身份卡路径 / read 契约缩小版 / REQ-DESIGN 引用）
 2. 用 templates/dispatch-command.md 渲染可粘贴文本
 3. 用户复制粘贴到目标 agent 会话
 
 **第一行强制**：
 ```
-身份牌：IDENTITY-<岗名>.md（开工前先读，按 read 最小契约执行）
+身份牌：id-card-<昵称>.md（开工前先读，按 read 最小契约执行）
 ```
 
 **优**：
@@ -35,9 +35,9 @@
 **怎么用**：
 1. main 生成派发材料
 2. 用 templates/dispatch-file.md 渲染 `dispatch-<id>.md`
-3. 落到 `roles/inbox/dispatch-<id>.md`
+3. 落到 `.claude/coordination/active/dispatch-<id>.md`
 4. 目标 agent 自动 / 手动读取并启动常规工作流
-5. 完成后归档到 `roles/inbox/archive/`
+5. 完成后归档到 `.claude/coordination/archive/`
 
 **优**：
 - 可审计（dispatch 文件本身就是证据）
@@ -54,7 +54,7 @@
 - main 用 subagent 工具直接派活（同会话）
 
 **怎么用**：
-- 输入：任务描述 + 对应 IDENTITY 卡 read 契约缩小版
+- 输入：任务描述 + 对应 身份卡 read 契约缩小版
 - 输出：结论（不是原文）
 - main 只消费结论不重跑
 
@@ -75,7 +75,7 @@
 
 无论哪种形式，派发材料必含：
 - 任务描述 / 边界 / 交付物
-- 目标岗 IDENTITY 文件路径
+- 目标岗身份卡文件路径
 - read 契约缩小版（不是全契约）
 - REQ-DESIGN 引用
 - 红线清单

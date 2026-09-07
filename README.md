@@ -33,26 +33,32 @@
 ```
 agent-coordination-protocol/
 ├── SKILL.md                              # 主流程（双工作流 + 8 原则）
-├── templates/                            # 13 个模板
-│   ├── identity-card.md                  # 通用 IDENTITY 模板
-│   ├── identity-main.md                  # main 预填卡
-│   ├── role-recruitment.md               # 招聘决策
+├── templates/                            # 15 个模板
+│   │                                     # —— 实战验证过 ——
+│   ├── dispatch-file.md                  # 派发 B（含 §开工前核对清单）
 │   ├── dispatch-command.md               # 派发 A
-│   ├── dispatch-file.md                  # 派发 B
+│   ├── handoff-checklist.md              # 跨岗交接（含 §反向纠错 / §测试员耗时）
+│   ├── identity-verifier.md              # 独立验证岗身份卡 ★v0.2 新增
+│   ├── resume-point.md                   # session 接续点 ★v0.2 新增
+│   ├── identity-card.md                  # 通用身份卡模板
+│   ├── identity-main.md                  # main-designer 预填卡
+│   │                                     # —— 未验证 ——
+│   ├── role-recruitment.md               # 招聘决策
 │   ├── placeholder-registry.md           # 占位登记表
 │   ├── subtask-list.md                   # 次级任务清单
 │   ├── claim-protocol.md                 # 认领协议
 │   ├── test-credibility.md               # 可信度条款
-│   ├── handoff-checklist.md              # 跨岗交接
 │   ├── registry-pr-template.md           # 登记表 PR 模板
 │   ├── credibility-revisit-protocol.md   # 重议协议
 │   └── health-checklist.md               # 健康度清单
 ├── references/                           # 13 个参考
-│   ├── eight-pinning-principles.md
-│   ├── role-catalog.md
+│   │                                     # —— 实战验证过 ——
 │   ├── regular-workflow.md
 │   ├── dispatch-formats.md
+│   ├── role-catalog.md
 │   ├── three-layer-structure.md
+│   │                                     # —— 未验证（顶部有声明）——
+│   ├── eight-pinning-principles.md
 │   ├── input-collection-checklist.md
 │   ├── competitive-landscape.md
 │   ├── conway-inverse-maneuver.md
@@ -65,6 +71,29 @@ agent-coordination-protocol/
     └── README.md                         # 端到端示例
 ```
 
+## 运行时目录（协议落到项目里长这样）
+
+```
+<项目根>/.claude/coordination/
+├── active/                      # 进行中（dispatch + handoff 同目录共存）
+│   ├── dispatch-<id>.md
+│   ├── handoff-<id>.md
+│   └── resume-point-<id>.md
+├── archive/                     # 已完成，带日期前缀
+│   └── <YYYY-MM-DD>-dispatch-<id>.md
+└── id-card-<昵称>.md            # 各终端身份卡
+```
+
+## 验证状态（v0.2 起如实标注）
+
+| 部分 | 状态 |
+|---|---|
+| 派发 / 交接闭环、反向纠错、原则 1-4 | **20 单闭环实测** |
+| commit 锚点时序、串行接单、测试员 A/B/C、接续点、中断恢复 | **实战踩出来的** |
+| 原则 5-8（规模自适应 / 协议即代码 / 重议 / CHAOSS 健康度）、真冗余投票 | **未验证**，小项目默认关闭 |
+
+唯一试用项目规模是 1 人 + 2 终端 + 3 身份卡——按原则 5 自己的判定逻辑直接落进小项目旁路模式，所以 5-8 从未触发。
+
 ## 快速开始
 
 ### 作为 Claude Code skill 使用
@@ -75,13 +104,13 @@ agent-coordination-protocol/
 
 ### 作为项目内的协调机制使用
 
-1. 在项目根执行 `cp -r agent-coordination-protocol/templates/* your-project/roles/`
+1. 在项目根执行 `cp -r agent-coordination-protocol/templates/* your-project/.claude/coordination/`
 2. 按 SKILL.md 主流程铺岗卡
 3. 走协议即代码流程（PR + review）
 
 ## 8 条原则速查
 
-1. **身份是单位**——IDENTITY-*.md 是身份卡不是模块卡
+1. **身份是单位**——id-card-*.md 是身份卡不是模块卡
 2. **占位岗不养空卡**——只登记不预生成
 3. **职责隔离（按需）**——验证类岗必须独立、可信度写死
 4. **main 默认**——项目启动即存在

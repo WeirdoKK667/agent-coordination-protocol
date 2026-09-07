@@ -13,7 +13,7 @@
 ## 召集流程
 
 ```
-1. main 在 roles/decisions/ 创建 credibility-revisit-<YYYY-MM-DD>.md
+1. main 在 .claude/coordination/decisions/ 创建 credibility-revisit-<YYYY-MM-DD>.md
 2. 列出本次重议范围：
    - 修改项（可修改的：通过阈值 / 命令参数 / 失败容忍）
    - 保留项（不可修改的硬条款）
@@ -88,4 +88,4 @@
 - 不要跳过重议周期——4 周强制一次，不可延期
 - 不要删除硬条款——票数为 0 自动拒绝
 - 不要让单方面决定修改——必须走投票
-- 不要让重议留痕散落——必须落 `roles/decisions/credibility-revisit-<date>.md`
+- 不要让重议留痕散落——必须落 `.claude/coordination/decisions/credibility-revisit-<date>.md`

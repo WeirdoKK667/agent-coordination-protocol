@@ -1,4 +1,4 @@
-# 通用 IDENTITY 卡片模板（双层结构）
+# 通用 身份卡片模板（双层结构）
 
 > 用于招出的任意岗（main 之外）。顶层 YAML 兼容 Claude Code 官方 subagent 语法（保证可直接加载为 subagent），正文按参考文档 §三 四块结构。
 
@@ -22,7 +22,7 @@ color: <Claude Code 标识色>
 #### 1. 岗位定义
 
 - 这个岗位是谁、对谁负责、轮换规则
-- 上游岗：IDENTITY-main.md
+- 上游岗：id-card-main-designer.md
 - 何时入场 / 何时退场（v6 身份保质期）
 
 #### 2. 职责清单
@@ -39,7 +39,7 @@ color: <Claude Code 标识色>
 #### 3. read 最小契约
 
 **开工必读清单**：
-- 本卡（IDENTITY-<本岗>.md）
+- 本卡（id-card-<本岗昵称>.md）
 - REQ 单（REQ-<id>.md，本任务相关）
 - 本岗设计稿相关节
 - 改动函数 / 文件
@@ -77,11 +77,11 @@ memory: project
 color: blue
 ---
 
-# IDENTITY — 模块 A 实现工程师
+# 身份卡 — 模块 A 实现工程师
 
 ## 岗位定义
 - 身份：模块 A 实现工程师
-- 上游岗：IDENTITY-main.md
+- 上游岗：id-card-main-designer.md
 - 入场：拿到 dispatch-<id>.md 后入场；退场：交工凭证完成 + 验证岗接单
 
 ## 职责清单

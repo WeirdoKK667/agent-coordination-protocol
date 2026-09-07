@@ -33,7 +33,7 @@
 
 ```
 1. 招出验证岗后立即初始化
-2. 把上述阈值写到 roles/health/baseline.md
+2. 把上述阈值写到 .claude/coordination/health/baseline.md
 3. 设置自动计算脚本（cron / GitHub Action）
 4. 设置告警接收人：main
 5. 设置重议日：每 4 周或每 milestone

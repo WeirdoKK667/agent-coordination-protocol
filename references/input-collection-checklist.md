@@ -1,5 +1,7 @@
 # 输入采集 checklist（references/input-collection-checklist.md）
 
+> ⚠ **未经实战验证**（截至 2026-09-08）。本文件描述的机制在唯一试用项目里从未触发——该项目规模为 1 人 + 2 终端 + 3 身份卡，按 SKILL.md §0 原则 5 直接落进小项目旁路模式。小项目可跳过本文件。
+
 > 主工作流步骤 4.2 用。按 checklist 采集项目输入，避免产出残缺身份卡。
 
 ## 必采清单
@@ -51,13 +53,13 @@
 ## 缺失处理
 
 - 缺模块清单 → 先用 Glob + Grep 工具扫项目结构
-- 缺现有协议 → 在 roles/decisions/ 起草 + 走 PR
+- 缺现有协议 → 在 .claude/coordination/decisions/ 起草 + 走 PR
 - 缺项目根结构 → 用 ls + tree 工具读目录
 
 ---
 
 ## 不要做的事
 
-- 不要跳过 checklist——任何缺项都会导致 IDENTITY 卡残缺
-- 不要让采集结果散落——必须落 `roles/context/<date>.md`
+- 不要跳过 checklist——任何缺项都会导致 身份卡残缺
+- 不要让采集结果散落——必须落 `.claude/coordination/context/<date>.md`
 - 不要采集 main 已经知道的（避免重复劳动）

@@ -1,6 +1,6 @@
 # 测试可信度标准段（§四 四条 + v6 重议机制）
 
-> 招出验证/测试类岗时，原样嵌入 IDENTITY-<验证岗>.md。v6 强制重议机制配套。
+> 招出验证/测试类岗时，原样嵌入 id-card-<验证岗>.md。v6 强制重议机制配套。
 
 ## §四 四条硬条款（来自参考文档）
 
@@ -62,21 +62,21 @@ Total: 81 | Passed: 81 | Failed: 0
 
 ### 留痕要求
 
-每次重议结论必须写入 `roles/decisions/credibility-revisit-<date>.md`：
+每次重议结论必须写入 `.claude/coordination/decisions/credibility-revisit-<date>.md`：
 - 召集人 / 投票人
 - 修改项 + 修改前/后对比
 - 下次重议日期
 
 ---
 
-## 嵌入 IDENTITY 验证岗卡的示例
+## 嵌入验证岗身份卡的示例
 
 ```markdown
 ## 职责清单（验证类岗专属）
 
 ### §四 四条硬条款
 
-1. **一条命令可复现**：验收命令见 `<roles/commands/verify.sh>`（含 cd + 完整参数 + `--` 分隔符）
+1. **一条命令可复现**：验收命令见 `<.claude/coordination/commands/verify.sh>`（含 cd + 完整参数 + `--` 分隔符）
 2. **输出带计数**：实跑输出含 `Total: X | Passed: Y | Failed: Z`
 3. **失败留痕**：失败日志落 `<project>/logs/verify-<date>.log`，含用例名 + 原因 + commit hash
 4. **报 commit hash**：验收结论必须含 `commit = <hash>` + `branch = <remote>`
@@ -87,7 +87,7 @@ Total: 81 | Passed: 81 | Failed: 0
 - 流程：templates/credibility-revisit-protocol.md
 - 不可修改：必须可复现 / 必须带计数 / 必须留痕 / 必须报远程 hash
 - 可修改：通过阈值 / 命令参数 / 失败容忍
-- 留痕：roles/decisions/credibility-revisit-<date>.md
+- 留痕：.claude/coordination/decisions/credibility-revisit-<date>.md
 ```
 
 ---

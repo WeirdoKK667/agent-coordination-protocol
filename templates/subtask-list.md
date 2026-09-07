@@ -7,7 +7,7 @@
 ```markdown
 # 次级任务清单
 
-> 维护人：IDENTITY-main.md  
+> 维护人：id-card-main-designer.md  
 > 协议：见 templates/registry-pr-template.md（每次变更走 PR）
 
 ## 任务条目
@@ -20,7 +20,7 @@
   - [ ] <步骤 2>
   - [ ] <步骤 3>
 - **默认派发方式**：<subagent 临时指定身份 / 形式 A / 形式 B>
-- **关联 IDENTITY**：<临时身份对应的 IDENTITY 卡，如无则用 main 兼任>
+- **关联身份卡**：<临时身份对应的 身份卡，如无则用 main 兼任>
 - **关联产物**：<落盘到哪>
 
 ### <任务名 2>
@@ -35,7 +35,7 @@
 ```markdown
 # 次级任务清单
 
-> 维护人：IDENTITY-main.md
+> 维护人：id-card-main-designer.md
 
 ## 任务条目
 
@@ -48,18 +48,18 @@
   - [ ] 画架构图（模块边界 + 数据流 + 共享文件权限）
   - [ ] 落 `docs/architecture/<date>.md`
 - **默认派发方式**：形式 B 命令文件（dispatch-architecture-<date>.md）
-- **关联 IDENTITY**：架构类岗（如无，main 兼任）
+- **关联身份卡**：架构类岗（如无，main 兼任）
 
 ### 注册新数据条目
 
 - **触发条件**：有新数据需要加入 data/registry/
 - **check 清单**：
-  - [ ] 读 IDENTITY 数据/内容类岗
+  - [ ] 读数据/内容类岗身份卡
   - [ ] 校验 schema
   - [ ] 写入 data/registry/<条目>.yaml
   - [ ] 走 PR 走 review
 - **默认派发方式**：subagent 临时身份（数据/内容类）
-- **关联 IDENTITY**：IDENTITY-数据内容.md（如招出）
+- **关联身份卡**：id-card-数据内容.md（如招出）
 ```
 
 ---
@@ -67,5 +67,5 @@
 ## 不要做的事
 
 - 不要把"实现某个模块"这种大型工作当次级任务——次级任务是 routine 流水线
-- 不要让次级任务绕过认领协议——必须附 IDENTITY 卡或临时身份
+- 不要让次级任务绕过认领协议——必须附 身份卡或临时身份
 - 不要让次级任务清单无限膨胀——定期清理已废弃任务

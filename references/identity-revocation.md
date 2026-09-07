@@ -1,5 +1,7 @@
 # 可撤销身份机制（references/identity-revocation.md）
 
+> ⚠ **未经实战验证**（截至 2026-09-08）。本文件描述的机制在唯一试用项目里从未触发——该项目规模为 1 人 + 2 终端 + 3 身份卡，按 SKILL.md §0 原则 5 直接落进小项目旁路模式。小项目可跳过本文件。
+
 > v6 原则 8（健康度挂钩）的延伸。借鉴 Wikipedia desysop + Stripe pod rotation + ICS Transfer of Command。
 
 ## 为什么要"可撤销"
@@ -15,7 +17,7 @@
 
 ### 第 1 层：身份保质期（默认开启）
 
-- 每个 IDENTITY 卡有"入场时间 + 退场时间"
+- 每个 身份卡有"入场时间 + 退场时间"
 - 默认保质期：每 4 周（与重议周期对齐）
 - 到期触发续期评审
 
@@ -37,8 +39,8 @@
 
 ```
 1. 在登记表把状态从 [招] 改 [撤]
-2. IDENTITY 卡归档到 roles/archive/
-3. 写撤销说明（roles/decisions/revoke-<date>-<name>.md）：
+2. 身份卡归档到 .claude/coordination/archive/
+3. 写撤销说明（.claude/coordination/decisions/revoke-<date>-<name>.md）：
    - 撤销者
    - 撤销理由
    - 是否需要接班人

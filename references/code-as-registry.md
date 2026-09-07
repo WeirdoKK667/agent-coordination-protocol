@@ -1,5 +1,7 @@
 # 协议即代码（references/code-as-registry.md）
 
+> ⚠ **未经实战验证**（截至 2026-09-08）。本文件描述的机制在唯一试用项目里从未触发——该项目规模为 1 人 + 2 终端 + 3 身份卡，按 SKILL.md §0 原则 5 直接落进小项目旁路模式。小项目可跳过本文件。
+
 > v6 原则 6。借鉴 Linux MAINTAINERS + Kubernetes OWNERS 模型。登记表与代码同仓、可版本化、可审计、可回滚。
 
 ## 来源模型
@@ -29,7 +31,7 @@
 ### 占位登记表
 
 ```
-roles/
+.claude/coordination/
 ├── registry/
 │   ├── placeholder-registry.md（占位登记表）
 │   ├── subtask-list.md（次级任务清单）

@@ -1,5 +1,7 @@
 # CHAOSS 健康度指标挂钩（references/health-metrics.md）
 
+> ⚠ **未经实战验证**（截至 2026-09-08）。本文件描述的机制在唯一试用项目里从未触发——该项目规模为 1 人 + 2 终端 + 3 身份卡，按 SKILL.md §0 原则 5 直接落进小项目旁路模式。小项目可跳过本文件。
+
 > v6 原则 8。自动算 + 阈值告警 + main 必响应。
 
 ## 指标分类
@@ -37,7 +39,7 @@
 
 ```
 1. 招出验证岗后立即初始化
-2. 把阈值写到 roles/health/baseline.md
+2. 把阈值写到 .claude/coordination/health/baseline.md
 3. 设置自动计算：
    - cron（小型）
    - GitHub Action（推荐）

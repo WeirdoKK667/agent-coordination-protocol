@@ -14,15 +14,15 @@
 ### 实现类
 - **职责**：写代码 / 改数据 / 部署变更
 - **可细分**：按模块细分（模块A实现 / 模块B实现）
-- **IDENTITY 字段提示**：主所有权可写 = 代码路径 + 数据路径；永久不碰 = 核心状态 / 跨模块 API
+- **身份卡字段提示**：主所有权可写 = 代码路径 + 数据路径；永久不碰 = 核心状态 / 跨模块 API
 - **触发原则**：无（不触发职责隔离）
-- **上游引用**：IDENTITY-main.md
+- **上游引用**：id-card-main-designer.md
 
 ### 验证类
 - **职责**：写验收脚本 / 跑程序 / 出可信结论
-- **IDENTITY 字段提示**：嵌入 templates/test-credibility.md（§四 四条 + 重议机制）
+- **身份卡字段提示**：嵌入 templates/test-credibility.md（§四 四条 + 重议机制）
 - **触发原则**：⑶ 职责隔离（必须独立，不可由实现类兼任）
-- **上游引用**：IDENTITY-main.md
+- **上游引用**：id-card-main-designer.md
 - **配套**：templates/health-checklist.md 的验证岗专属指标
 
 ### 设计类
@@ -32,18 +32,18 @@
 
 ### 数据 / 内容类
 - **职责**：数据条目注册 / schema 校验 / 资源管理（数值表 / 资源清单 / 配置项）
-- **IDENTITY 字段提示**：主所有权可写 = data/registry/；共享文件权限 = data/loader 只读
+- **身份卡字段提示**：主所有权可写 = data/registry/；共享文件权限 = data/loader 只读
 - **触发原则**：无
 
 ### 架构类
 - **职责**：模块边界 / 共享文件权限 / 跨模块接口 / 数据流
-- **IDENTITY 字段提示**：永久不碰 = 各模块内部实现；共享文件权限 = 入口脚本只读 + 协议类只写
+- **身份卡字段提示**：永久不碰 = 各模块内部实现；共享文件权限 = 入口脚本只读 + 协议类只写
 - **触发原则**：无
 - **配套**：references/conway-inverse-maneuver.md
 
 ### 运维 / 集成类
 - **职责**：CI/CD / 部署 / 监控 / 工具链
-- **IDENTITY 字段提示**：主所有权可写 = .github/workflows/ / deploy/
+- **身份卡字段提示**：主所有权可写 = .github/workflows/ / deploy/
 - **触发原则**：无
 
 ### 感官 / 呈现类

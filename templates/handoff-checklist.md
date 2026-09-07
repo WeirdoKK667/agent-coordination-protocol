@@ -9,8 +9,8 @@
 
 ## 交接双方
 
-- 交方：IDENTITY-<岗名 A>.md
-- 接方：IDENTITY-<岗名 B>.md
+- 交方：id-card-<昵称 A>.md
+- 接方：id-card-<昵称 B>.md
 
 ## 交接时间
 
@@ -30,16 +30,48 @@
 
 ## 派发瑕疵反向纠错（如适用）
 
-implementer 接单后，发现 dispatch 与现状不符时**必填**：
+implementer 接单后，发现 dispatch 与现状不符时**必填**。实战 37% 的单会命中这一段。
+
 - 派发单哪条与现状不符：<引用 dispatch 段>
 - implementer 的判断依据：<文件路径 + commit hash + 当前内容>
 - main-designer 是否接受纠错：<待 main-designer 验收时回填>
+
+## 测试员耗时（dispatch §测试员模式要求 指定方式时必填）
+
+- 开始时间：<ISO8601>
+- 测试命令：`<完整命令文本>`
+- 输出 PASS/FAIL 数：<n>/<m>
+- 结束时间：<ISO8601>
+- 总耗时：<秒>
+- subagent 启停耗时（B / C 模式适用）：<秒>
+- 感受：<一句话——本单是否值得为验证单独开 subagent>
+
+## 已知未做（deferred）
+
+范围外发现的问题**标记不做**，不顺手修：
+
+- <问题 + 为什么归为范围外 + 建议后续怎么处理>
+
+## 疑问 / 设计矛盾（请 main-designer 拍板）
+
+遇设计矛盾**不擅自拍板**。给出选项 + 倾向 + 理由：
+
+- **<问题>**：选项 α <代价> / 选项 β <代价> —— 倾向 <α/β>，理由 <…>
+
+## main-designer 回应（验收时回填）
+
+> 交方写完 handoff 后留空此段；main-designer 验收时直接在 handoff 内回复上面的 §疑问，不另开文件。
+
+- 针对 §疑问 1：<拍板结论>
+- 针对 §疑问 2：<拍板结论>
+- 反向纠错是否接受：<逐条回应>
+- 整体评价：accepted / rejected + 理由
 
 ## 接方确认
 
 - [ ] 已读交接材料
 - [ ] 已开工自检（git fetch + status 干净）
-- [ ] 已读 IDENTITY-<岗 B>.md
+- [ ] 已读 id-card-<昵称 B>.md
 - [ ] 已开始走常规工作流
 
 ## 接方反馈（完成时回填）
@@ -58,8 +90,8 @@ implementer 接单后，发现 dispatch 与现状不符时**必填**：
 
 ## 交接双方
 
-- 交方：IDENTITY-impl-module-a.md
-- 接方：IDENTITY-verifier.md
+- 交方：id-card-impl-module-a.md
+- 接方：id-card-verifier.md
 
 ## 交接时间
 
@@ -77,7 +109,7 @@ implementer 接单后，发现 dispatch 与现状不符时**必填**：
 
 - [x] 已读交接材料
 - [x] 开工自检：git fetch OK / status 干净
-- [x] 已读 IDENTITY-verifier.md
+- [x] 已读 id-card-verifier.md
 - [x] 开始走常规工作流
 
 ## 接方反馈
@@ -94,3 +126,7 @@ implementer 接单后，发现 dispatch 与现状不符时**必填**：
 - 不要省交接材料中的任何一项——缺一项交接即无效
 - 不要让接方在未开工自检前开工——会带入脏工作区
 - 不要把本地 commit hash 当远程 hash 报——必须 push 后取 hash
+- 不要在 commit + push 之前取 hash——`git rev-parse HEAD` 会拿到上一个 commit（自指陷阱）
+- 不要把范围外发现的 bug 顺手修掉——标进 §已知未做
+- 不要擅自拍板设计矛盾——写进 §疑问 等 main-designer 回应
+- 不要删掉 §main-designer 回应 段——它是验收回填位，空着也要留

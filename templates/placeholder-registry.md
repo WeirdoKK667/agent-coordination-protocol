@@ -1,6 +1,6 @@
 # 占位登记表模板（v6 协议即代码）
 
-> 占位岗不养空卡——只登记，不预生成具体 IDENTITY-*.md。本表走 GitHub PR 流程（templates/registry-pr-template.md），可版本化、可审计、可回滚。
+> 占位岗不养空卡——只登记，不预生成具体 id-card-*.md。本表走 GitHub PR 流程（templates/registry-pr-template.md），可版本化、可审计、可回滚。
 
 ## 表头字段
 
@@ -8,23 +8,23 @@
 # 占位登记表（v<schema-version>）
 
 > 最后更新：<YYYY-MM-DD>  
-> 维护人：IDENTITY-main.md  
+> 维护人：id-card-main-designer.md  
 > 协议：见 templates/registry-pr-template.md（每次变更走 PR）
 
 ## 状态图例
 
 | 状态 | 含义 |
 |---|---|
-| [空] | 占位中（未招出，无 IDENTITY 卡） |
-| [招] | 已招出，IDENTITY-<name>.md 存在 |
-| [撤] | 已撤销，IDENTITY 卡归档 |
+| [空] | 占位中（未招出，无 身份卡） |
+| [招] | 已招出，id-card-<昵称>.md 存在 |
+| [撤] | 已撤销，身份卡归档 |
 
 ## 登记表
 
 | 名字 | 状态 | 激活条件 | 激活时由谁完善身份 | 备注 |
 |---|---|---|---|---|
 | <占位名 1> | [空] | <什么条件下激活> | <main / co-main / 委员会> | <关联模块 / 业务线> |
-| <占位名 2> | [招] | <已激活条件> | <实际招出者> | 指向 IDENTITY-<name>.md |
+| <占位名 2> | [招] | <已激活条件> | <实际招出者> | 指向 id-card-<昵称>.md |
 | <占位名 3> | [撤] | <历史条件> | <撤销者> | <撤销时间> / <归档路径> |
 ```
 
@@ -43,7 +43,7 @@
 # 占位登记表（v1）
 
 > 最后更新：2026-09-02  
-> 维护人：IDENTITY-main.md
+> 维护人：id-card-main-designer.md
 
 ## 状态图例
 
@@ -55,14 +55,14 @@
 |---|---|---|---|---|---|
 | 视觉设计 | [空] | 需要新视觉资产时 | main | TBD | 关联 modules/ui |
 | 数据/内容类 | [空] | 有新数据条目需要注册时 | main | TBD | 关联 data/ |
-| 实现-模块A | [招] | 已激活 | main | 2 人 | IDENTITY-impl-module-a.md |
-| 实现-模块B | [撤] | 项目裁剪时撤销 | main | 0 人 | 归档 roles/archive/ |
+| 实现-模块A | [招] | 已激活 | main | 2 人 | id-card-impl-module-a.md |
+| 实现-模块B | [撤] | 项目裁剪时撤销 | main | 0 人 | 归档 .claude/coordination/archive/ |
 ```
 
 ---
 
 ## 不要做的事
 
-- 不要在登记表里写具体 IDENTITY 卡内容——内容在 IDENTITY-*.md
+- 不要在登记表里写具体 身份卡内容——内容在 id-card-*.md
 - 不要让一个岗长期处于 [空] 不动——长期空位要么激活要么撤销
 - 不要无理由突破 ≤ 6 硬上限——突破必须在 PR 描述里写明

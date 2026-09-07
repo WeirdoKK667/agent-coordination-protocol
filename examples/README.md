@@ -24,12 +24,12 @@
 **走的路径**：
 1. 加载 skill
 2. 规模检测 → 小作坊
-3. 落 IDENTITY-main.md（用 templates/identity-main.md 预填）
+3. 落 id-card-main-designer.md（用 templates/identity-main.md 预填）
 4. 跳过招聘、跳过健康度挂钩
 5. 完成
 
 **产物**：
-- `roles/IDENTITY-main.md`
+- `.claude/coordination/id-card-main-designer.md`
 - 无登记表 / 无协议（旁路模式）
 
 ### 例 2：中型项目（4-10 模块 + 3-8 贡献者）
@@ -42,22 +42,22 @@
 **走的路径**：
 1. 加载 skill
 2. 规模检测 → 中型
-3. 落 IDENTITY-main.md
+3. 落 id-card-main-designer.md
 4. 招 4 个岗：
    - main（已存在）
-   - 实现类（IDENTITY-impl-module-auth.md）
-   - 实现类（IDENTITY-impl-module-api.md）
-   - 验证类（IDENTITY-verifier.md）
+   - 实现类（id-card-impl-module-auth.md）
+   - 实现类（id-card-impl-module-api.md）
+   - 验证类（id-card-verifier.md）
 5. 写登记表 + 任务清单 + 协议段
 6. 初始化健康度挂钩
 7. 设置重议日
 
 **产物**：
-- `roles/IDENTITY-*.md`（5 张）
-- `roles/registry/placeholder-registry.md`
-- `roles/subtask-list.md`
-- `roles/CONVENTIONS.md`（含认领协议）
-- `roles/health/baseline.md`
+- `.claude/coordination/id-card-*.md`（5 张）
+- `.claude/coordination/registry/placeholder-registry.md`
+- `.claude/coordination/subtask-list.md`
+- `.claude/coordination/CONVENTIONS.md`（含认领协议）
+- `.claude/coordination/health/baseline.md`
 
 ### 例 3：关键任务真冗余（可选模式启用）
 
@@ -74,7 +74,7 @@
 3. main 投票决定是否上线
 
 **产物**：
-- `roles/decisions/launch-v2-<date>.md`（含 3 份结论 + 投票记录）
+- `.claude/coordination/decisions/launch-v2-<date>.md`（含 3 份结论 + 投票记录）
 
 ---
 
@@ -83,8 +83,8 @@
 - 看完后**立即忘掉具体内容**，回到自己的项目结构
 - 不要把示例的"角色名"当成"应该用的角色名"
 - 用 role-catalog.md 的抽象类别自己选
-- 示例文件**只展示流程骨架**，具体 IDENTITY 卡内容由 main 填
+- 示例文件**只展示流程骨架**，具体 身份卡内容由 main 填
 
 ## 后续
 
-确认能跑通后，落盘到自己的项目根 `roles/` 目录即可。
+确认能跑通后，落盘到自己的项目根 `.claude/coordination/` 目录即可。
