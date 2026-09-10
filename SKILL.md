@@ -3,7 +3,7 @@ name: agent-coordination-protocol
 description: 多 agent / 多终端协作场景的协调协议——中大型项目团队组建、给 subagent 发身份牌（身份卡 / 角色卡 / id-card）、划定职责边界、维护 read 最小契约、派发任务单（dispatch）与交接单（handoff）、独立验证岗（verifier）、session 接续点、团队重组时使用。默认身份只有 main-designer，其他岗位按项目需要从 references/role-catalog.md 候选清单里"招聘"，不预设岗位清单，跨领域通用。覆盖：派发 / 交接闭环、反向纠错、commit 锚点时序、串行接单、中断恢复、测试员模式 A/B/C、占位登记表、认领协议、测试可信度条款。当用户提到协调多个 agent、拆分职责、派活给另一个终端、多 agent 协作 workflow 时应当加载。
 ---
 
-# Agent Coordination Protocol v0.2
+# Agent Coordination Protocol v0.2.1
 
 > 输入项目概况，派生身份卡体系 + 派发 / 交接闭环。
 > **原则 1-4 已实战验证**（20 单闭环，其中 19 单走完 handoff）；**原则 5-8 未验证**，小项目默认关闭。
@@ -128,12 +128,21 @@ description: 多 agent / 多终端协作场景的协调协议——中大型项�
 3. 明确工作内容 / 范围 / 交接点：
    - read 最小契约执行（必读 vs 显式无需读）
    - 红线对照清单
-<<<<<<< HEAD
    - **核对派发单与现状**：不符处记进 handoff §派发瑕疵反向纠错（37% 的单会命中）
 4. 干活（遇范围外 bug 标 deferred，不顺手做）
-5. 交工凭证：git push + 实跑输出 + commit hash + REQ 单回填 + 红线自检
-6. 交接：用 templates/handoff-checklist.md 交下一岗，材料：变更清单 + 测试输出 + commit hash
-```
+5. 交工凭证（强顺序：handoff → status → push）：
+   - 本地 commit → 实跑输出（按 dispatch §测试员模式 A/B/C）
+   - **落 handoff 文件**（必做；status 变更的强前置）
+   - 改 dispatch status: in_progress → handoff（handoff 必须先落盘）
+   - git push → 报远程 hash → REQ 回填 → 红线自检
+   - 详细步骤见 references/regular-workflow.md 步骤 5
+6. 交接：用 templates/handoff-checklist.md 交下一岗
+   - 交接材料第一项 = "handoff 文件已落盘"（必做）
+   - 材料：handoff + 变更清单 + 测试输出 + commit hash
+
+> **关键约束（v0.2.1 新增）**：implementer 改 status: in_progress → handoff 的**强前置条件** = handoff 文件已落盘。
+> 缺 handoff 的 status 变更视为无效，main-designer 不验收。
+> 详见 `references/lessons-learned.md`（dispatch-007 RED 现场）+ `templates/dispatch-file.md` §交工凭证。
 
 ### 2.1 commit 锚点时序（硬规则，避免自指陷阱）
 
@@ -178,22 +187,28 @@ main-designer 在 dispatch 单指定方式，implementer 按指定方式跑并�
 方向不确定、或涉及数据改动可能破坏基线时，先派**最小探针单**验证命令链路与影响面，再决定大单怎么派。
 
 实战价值：一次探针单就纠出了派发方两处字段错误（把坐标当 id 用、引用了错误的队列 API），避免大单返工。
-=======
-4. 干活
-5. 交工凭证（强顺序：report → status → push）：
-   - 本地 commit → 实跑输出 → 落 report 文件（必做）
-   - 改 dispatch status: claimed → done（report 必须先落盘）
-   - git push → 报远程 hash → REQ 回填 → 红线自检
-   - 详细步骤见 references/regular-workflow.md 步骤 5
-6. 交接：用 templates/handoff-checklist.md 交下一岗
-   - 交接材料第一项 = "report 文件已落盘"（必做）
-   - 材料：report + 变更清单 + 测试输出 + commit hash
+
+### 2.5 handoff 落盘强前置（v0.2.1 新增）
+
+**铁律**：implementer 改 dispatch status `in_progress → handoff` 之前，必须先落 `.claude/coordination/active/handoff-<id>.md` 文件。缺 handoff 文件的 status 变更视为无效。
+
+**强顺序**（缺一即交接无效）：
+
+```
+1. 本地 commit（不 push；commit message 引用 dispatch §验收标准）
+2. 实跑输出（PASS/FAIL 计数 + 测试用例清单；按 §2.3 测试员模式）
+3. 落 handoff 文件（必做）：
+   - 路径：.claude/coordination/active/handoff-<YYYY-MM-DD>-<NNN>.md
+   - 模板：templates/handoff-template.md
+   - 内容：§完成总结 / §复核点对照 / §归档建议 / §新发现问题 / §接续点 / §测试员耗时 / §派发瑕疵反向纠错 / §红线自检
+4. 改 dispatch status：in_progress → handoff（回填交工 commit hash）
+5. git push（handoff 落盘 + status 改完后再 push；按 §2.1 commit 锚点时序）
+6. 报远程 commit hash + remote branch
+7. 回填 REQ 单"已完成 + commit hash + 验收岗"
+8. 红线对照自检：dispatch §红线 + id-card §永久不碰清单 全打勾
 ```
 
-> **关键约束（v0.1.1 新增）**：imp 改 status: claimed → done 的**强前置条件** = report 文件已落盘。
-> 缺 report 的 status 变更视为无效，main 不验收。
-> 详见 references/lessons-learned.md（dispatch-007 RED 现场）+ templates/dispatch-file.md §交工凭证。
->>>>>>> 1969a78 (fix(coordination): imp 改 status→done 强前置 report 落盘（v0.1.1，dispatch-007 RED 修复）)
+**RED 现场**（dispatch-2026-09-09-007，2026-09-10）：implementer 在 feat commit 2e2c775 闭环后跳过 handoff 落盘直接改 status=handoff，被 main-designer session 启动时拦截，浪费 1 个 session 决策时间。详见 `references/lessons-learned.md`。
 
 ---
 
@@ -252,12 +267,14 @@ main-designer 在 dispatch 单指定方式，implementer 按指定方式跑并�
 |---|---|
 | 派发单模板（含 §开工前核对清单）| templates/dispatch-file.md / dispatch-command.md |
 | 交接单模板（含 §反向纠错 / §测试员耗时）| templates/handoff-checklist.md |
+| handoff 文件模板（含 8 段）| templates/handoff-template.md |
 | 独立验证岗身份卡 | templates/identity-verifier.md |
 | session 接续点模板 | templates/resume-point.md |
 | 常规工作流步骤 | references/regular-workflow.md |
 | 派发形式选择 | references/dispatch-formats.md |
 | 招什么岗 | references/role-catalog.md |
 | 三层结构 | references/three-layer-structure.md |
+| 实战经验教训 | references/lessons-learned.md |
 
 **未经实战验证（按需读，小项目可跳过）**：
 
@@ -288,11 +305,19 @@ main-designer 在 dispatch 单指定方式，implementer 按指定方式跑并�
 - implementer **不擅自解红线**——红线只能由 main-designer 显式解除
 - implementer **不顺手修范围外 bug**——标 deferred
 - 原则 5-8 未验证，**不在小项目里默认开启**
+- **不在 handoff 落盘前改 status: in_progress → handoff**——v0.2.1 强约束，违反则 status 变更无效
 
 ---
 
 ## 6. 版本
 
+- **v0.2.1（2026-09-10）**：handoff 落盘强前置约束。修复 dispatch-2026-09-09-007 RED 现场（implementer feat commit 闭环但跳过 handoff 落盘）。
+  - SKILL.md §2.5 新增：handoff 落盘 8 步强顺序
+  - templates/dispatch-file.md §交工凭证：handoff → status → push 强顺序
+  - templates/handoff-checklist.md：交接材料第一项 = handoff 已落盘
+  - references/regular-workflow.md 步骤 5：8 步强顺序 + 前置条件
+  - templates/handoff-template.md（原 report-template.md 重命名）：handoff 标准模板
+  - references/lessons-learned.md（新）：RED 现场 + 修复设计
 - **v0.2（2026-09-08）**：首次实战反馈整合（20 单闭环）。
   - frontmatter 修正：删掉非官方字段 `version` / `trigger_words`（不被 Claude Code 识别，触发词并入 `description`）
   - 结构对齐实战口径：`roles/inbox/` → `.claude/coordination/active/`，`IDENTITY-<岗>.md` → `id-card-<昵称>.md`

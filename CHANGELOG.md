@@ -6,13 +6,13 @@
 
 **根因**：`status: in_progress → handoff` 状态变更没有强前置条件，implementer 可在 handoff 文件缺失时自行改状态。
 
-**修复（5 文件改 + 2 新增）**：
+**修复（5 文件改 + 2 新增 + 1 重命名）**：
 
 - `templates/dispatch-file.md` §交工凭证：增加 "handoff → status → push" 强顺序；status 变更前 handoff 必须落盘
 - `templates/handoff-checklist.md` 交接材料第一项 = "handoff 文件已落盘"
 - `references/regular-workflow.md` 步骤 5：8 步强顺序，前置条件写死
-- `SKILL.md` §2：工作流主路径增加 "关键约束" 段引用 lessons-learned
-- `templates/handoff-template.md`（新增；原 templates/report-template.md 重命名）：handoff 文件标准模板，与 handoff-checklist 对齐
+- `SKILL.md` §2 + §2.5（新增小节）：工作流主路径增加 "关键约束" 段 + handoff 落盘强前置段
+- `templates/handoff-template.md`（原 `templates/report-template.md` 重命名）：handoff 文件标准模板，与 handoff-checklist 对齐
 - `references/lessons-learned.md`（新增）：RED 现场 + 修复设计思路
 
 **行为变化**：
@@ -31,6 +31,8 @@
 - skill upstream 沿用 v0.2 的 `handoff` 命名
 - 项目级（如 godot tier0 demo `.claude/acp/report-flow.md`）沿用 `report` 命名
 - 两者指同一对象；本 skill 上游以 `handoff` 为准
+
+---
 
 ## 0.2.0 (2026-09-08)
 
@@ -79,39 +81,15 @@
 
 - **跨机器 file sync**——当前协议只适用于同一文件系统。跨机器需要 sync 机制，超出协议范围。
 - **§开工前核对清单 仍不能完全防住派发瑕疵**——迭代 7 轮后每轮新单仍会暴露新的不符点。清单能降低发生率，不能归零。
-=======
-## 0.1.1 (2026-09-10)
 
-修复 dispatch-007 RED 现场：imp feat commit 闭环但跳过 report 落盘的协调漏洞。
-
-**根因**：`status: claimed → done` 状态变更没有强前置条件，imp 可在 report 缺失时自行改状态。
-
-**修复（5 文件 + 1 新增）**：
-
-- `templates/dispatch-file.md` §交工凭证：增加"report → status → push"强顺序；status 变更前 report 必须落盘
-- `templates/handoff-checklist.md` 交接材料第一项 = "report 文件已落盘"
-- `references/regular-workflow.md` 步骤 5：8 步强顺序，前置条件写死
-- `SKILL.md` §2：工作流主路径增加"关键约束"段引用 lessons-learned
-- `templates/report-template.md`（新增）：report 文件标准模板，与 handoff-checklist 对齐
-- `references/lessons-learned.md`（新增）：RED 现场 + 修复设计思路
-
-**行为变化**：
-- imp 不能再"feat commit → 直接改 status=done"
-- 必须顺序：本地 commit → 实跑 → 落 report → 改 status → push
-- main 验收前必查 report 文件存在
-
-**保留行为**：
-- 8 条原则不动
-- templates 13 个其他文件不动（identity / 招聘 / 登记 / 任务 / 协议 / 测试可信度 / 健康度 / 重议 / PR 模板）
-- references 13 个其他文件不动（原则速查 / 角色目录 / 输入采集 / 竞品对比 / Conway / 规模自适应 / 协议即代码 / 健康度指标 / 撤销机制 / 真冗余 / 三层结构 / 派发形式 / dispatch-formats）
->>>>>>> 1969a78 (fix(coordination): imp 改 status→done 强前置 report 落盘（v0.1.1，dispatch-007 RED 修复）)
+---
 
 ## 0.1.0 (2026-09-02)
 
 试用版首推。
 
 - **8 条原则** 默认全开（身份是单位 / 占位不养空卡 / 职责隔离 / main 默认 / 规模自适应 / 协议即代码 / 可信度写死+重议 / 健康度挂钩）
-- **28 个文件** 落盘（v0.2 增至 33）：
+- **28 个文件** 落盘（v0.2 增至 33；v0.2.1 增至 35）：
   - 1 个 SKILL.md（主流程）
   - 13 个 templates（identity / 招聘 / 派发 / 登记 / 任务 / 协议 / 测试可信度 / 交接 / 健康度 / 重议 / PR 模板）
   - 13 个 references（原则速查 / 角色目录 / 工作流 / 派发形式 / 三层结构 / 输入采集 / 竞品对比 / Conway / 规模自适应 / 协议即代码 / 健康度指标 / 撤销机制 / 真冗余）
