@@ -1,140 +1,33 @@
 # Agent Coordination Protocol
 
-> 中大型项目 / 多 agent 协作的协调机制 — 身份分工 + 任务派发 + 认领协议 + 健康度挂钩 + 重议机制
+多 agent / 多终端协作的协调协议。
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](CHANGELOG.md)
-[![Claude Code Skill](https://img.shields.io/badge/Claude-Code%20Skill-blueviolet)](https://docs.claude.com)
+## 何时用
 
-## 这是什么
-
-给 subagent 发身份牌、划定职责边界、维护 read 最小契约的整套方法。
-
-**默认身份只有 main**（项目总负责人），其他身份按项目需要从候选清单"招聘"——不预设具体岗位清单，跨领域通用。
-
-## 核心特性
-
-- **8 条原则默认全开**：身份是单位 / 占位不养空卡 / 职责隔离 / main 默认 / 规模自适应 / 协议即代码 / 可信度写死+重议 / 健康度挂钩
-- **规模自适应**：身份卡 ≤ 6 硬上限（可主动突破）；模块数 ≤ 3 自动进小项目旁路模式
-- **协议即代码**：登记表走 PR + review（借鉴 Linux MAINTAINERS + Kubernetes OWNERS）
-- **测试可信度硬条款**：一条命令可复现 / PASS-FAIL 计数 / 失败留痕 / 报 commit hash
-- **健康度挂钩**：CHAOSS 指标自动算 + 阈值告警（避免重蹈 Linux 2018 / XZ Utils 2024）
-- **重议机制**：每 4 周或每 milestone 触发（借鉴 Stripe RFS）
-
-## 适用场景
-
-- 中大型项目开工 / 重组 / 接新模块
-- 多 agent 协作需要给 subagent 发身份牌
-- 团队组建 / 角色卡 / 团队重组
-- 需要协调机制防止"实现测一遍、测试测一遍、main 不信又测一遍"的三方浪费
-
-## 目录结构
-
-```
-agent-coordination-protocol/
-├── SKILL.md                              # 主流程（双工作流 + 8 原则）
-├── templates/                            # 15 个模板
-│   │                                     # —— 实战验证过 ——
-│   ├── dispatch-file.md                  # 派发 B（含 §开工前核对清单）
-│   ├── dispatch-command.md               # 派发 A
-│   ├── handoff-checklist.md              # 跨岗交接（含 §反向纠错 / §测试员耗时）
-│   ├── identity-verifier.md              # 独立验证岗身份卡 ★v0.2 新增
-│   ├── resume-point.md                   # session 接续点 ★v0.2 新增
-│   ├── identity-card.md                  # 通用身份卡模板
-│   ├── identity-main.md                  # main-designer 预填卡
-│   │                                     # —— 未验证 ——
-│   ├── role-recruitment.md               # 招聘决策
-│   ├── placeholder-registry.md           # 占位登记表
-│   ├── subtask-list.md                   # 次级任务清单
-│   ├── claim-protocol.md                 # 认领协议
-│   ├── test-credibility.md               # 可信度条款
-│   ├── registry-pr-template.md           # 登记表 PR 模板
-│   ├── credibility-revisit-protocol.md   # 重议协议
-│   └── health-checklist.md               # 健康度清单
-├── references/                           # 13 个参考
-│   │                                     # —— 实战验证过 ——
-│   ├── regular-workflow.md
-│   ├── dispatch-formats.md
-│   ├── role-catalog.md
-│   ├── three-layer-structure.md
-│   │                                     # —— 未验证（顶部有声明）——
-│   ├── eight-pinning-principles.md
-│   ├── input-collection-checklist.md
-│   ├── competitive-landscape.md
-│   ├── conway-inverse-maneuver.md
-│   ├── scaling-modes.md
-│   ├── code-as-registry.md
-│   ├── health-metrics.md
-│   ├── identity-revocation.md
-│   └── redundancy-validation.md
-└── examples/
-    └── README.md                         # 端到端示例
-```
-
-## 运行时目录（协议落到项目里长这样）
-
-```
-<项目根>/.claude/coordination/
-├── active/                      # 进行中（dispatch + handoff 同目录共存）
-│   ├── dispatch-<id>.md
-│   ├── handoff-<id>.md
-│   └── resume-point-<id>.md
-├── archive/                     # 已完成，带日期前缀
-│   └── <YYYY-MM-DD>-dispatch-<id>.md
-└── id-card-<昵称>.md            # 各终端身份卡
-```
-
-## 验证状态（v0.2 起如实标注）
-
-| 部分 | 状态 |
-|---|---|
-| 派发 / 交接闭环、反向纠错、原则 1-4 | **20 单闭环实测** |
-| commit 锚点时序、串行接单、测试员 A/B/C、接续点、中断恢复 | **实战踩出来的** |
-| 原则 5-8（规模自适应 / 协议即代码 / 重议 / CHAOSS 健康度）、真冗余投票 | **未验证**，小项目默认关闭 |
-
-唯一试用项目规模是 1 人 + 2 终端 + 3 身份卡——按原则 5 自己的判定逻辑直接落进小项目旁路模式，所以 5-8 从未触发。
+- 派活给另一个 agent
+- 多 agent 协作 / 多终端分工
+- 给 subagent 发身份牌
+- 团队组建 / 角色卡
 
 ## 快速开始
 
-### 作为 Claude Code skill 使用
+读 `SKILL.md` 拿流程 + 原则，按需加载 `roles/<role>.md` 领身份。
 
-1. 拷贝 `agent-coordination-protocol/` 到 `~/.claude/skills/`
-2. Claude Code 自动加载，触发条件见 SKILL.md frontmatter description
-3. 调用场景：中大型项目开工 / 重组 / 给 subagent 发身份牌时
+## 文件结构
 
-### 作为项目内的协调机制使用
+```
+SKILL.md          主流程 + 原则
+roles/            预设岗位（main-designer / implementer / verifier / artist）
+templates/        文档模板（dispatch / handoff）
+```
 
-1. 在项目根执行 `cp -r agent-coordination-protocol/templates/* your-project/.claude/coordination/`
-2. 按 SKILL.md 主流程铺岗卡
-3. 走协议即代码流程（PR + review）
-
-## 8 条原则速查
-
-1. **身份是单位**——id-card-*.md 是身份卡不是模块卡
-2. **占位岗不养空卡**——只登记不预生成
-3. **职责隔离（按需）**——验证类岗必须独立、可信度写死
-4. **main 默认**——项目启动即存在
-5. **规模自适应**——默认 ≤ 6 卡硬上限，可主动突破
-6. **协议即代码**——走 PR 流程
-7. **可信度写死+重议**——§四 4 条 + 每 4 周重议
-8. **健康度挂钩**——CHAOSS 指标 + 告警响应
-
-详见 [references/eight-pinning-principles.md](references/eight-pinning-principles.md)
-
-## 调研依据
-
-本方法论基于：
-
-- **AI agent 圈层**：anthropics/skills、context-aware-delegation、obra/superpowers 等调研
-- **经典项目管理**：PMBOK、Conway's Law（1968）、Scrum、Team Topologies、Shape Up
-- **大型工程实践**：Linux MAINTAINERS、Kubernetes OWNERS、Stripe RFS、CHAOSS 指标
-- **反向案例**：Linux 2018（Linus 休假）、XZ Utils 2024（后门）、CDPR Crunch、Valve 隐性等级、RACI 膨胀
-
-详见 [references/competitive-landscape.md](references/competitive-landscape.md)
+详见 `SKILL.md`。
 
 ## 版本
 
-- **v0.1.0** (2026-09-02) — 试用版，28 文件
+v3.0（2026-09-10）— 整体重写，删实战细节，岗位预设独立。
+
+详见 `CHANGELOG.md`。
 
 ## License
 
