@@ -16,11 +16,12 @@
 
 <YYYY-MM-DD HH:MM>
 
-## 交接材料（必含）
+## 交接材料（必含；缺一即交接无效）
 
+- [ ] **handoff 文件已落盘**（必做；status: in_progress → handoff 的强前置条件）—— `.claude/coordination/active/handoff-<id>.md`
 - [ ] 变更清单（改了哪些文件 / 行数 / commit hash）
 - [ ] 实跑输出（PASS/FAIL 计数 + 测试用例清单）
-- [ ] 远程 commit hash（不是本地 hash）
+- [ ] 远程 commit hash（不是本地 hash；必须 push 后取）
 - [ ] REQ 单回填（已完成 + commit hash + 验收岗）
 - [ ] 红线对照自检（确认没越界）
 

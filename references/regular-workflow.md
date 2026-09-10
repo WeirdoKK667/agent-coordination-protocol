@@ -47,16 +47,26 @@
 - 不绕过健康度告警
 ```
 
-## 步骤 5：交工凭证
+## 步骤 5：交工凭证（强顺序，缺一即无效）
+
+> **铁律**：imp 改 dispatch status: `claimed → done` 的**强前置条件** = report 文件已落盘。
+> 没有 report 落盘的 status 变更视为无效，main 不会验收。
 
 ```
-1. git push（先 push 再交工）
+1. 本地 commit（不 push；commit message 引用 dispatch §复核点）
 2. 实跑输出：
    - PASS/FAIL 计数
    - 失败日志落 <project>/logs/<job>-<date>.log（含用例名 + 原因 + commit hash）
-3. 报远程 commit hash + remote branch
-4. 需求单回填：REQ 单写"已完成 + commit hash + 验收岗"
-5. 红线对照自检：确认没越界
+3. 落 report 文件（必做）：inbox/report-<YYYY-MM-DD>-<NNN>.md
+   - 模板见 templates/report-template.md
+   - 含 §完成总结 / §归档建议 / §新发现问题 / §下次 session 接续点 4 段
+   - 缺此文件 → 后续 status 变更视为无效
+4. 改 dispatch status: claimed → done（回填交工 commit hash）
+   - 前置条件：步骤 3 已完成
+5. git push（report 落盘 + status 改完后再 push）
+6. 报远程 commit hash + remote branch
+7. 需求单回填：REQ 单写"已完成 + commit hash + 验收岗"
+8. 红线对照自检：确认没越界
 ```
 
 ## 步骤 6：交接
@@ -64,7 +74,8 @@
 ```
 1. 按 身份卡"交接点"清单交给下一岗
 2. 用 templates/handoff-checklist.md 走交接
-3. 交接材料：变更清单 + 测试输出 + commit hash
+   - 交接材料第一项 = "report 文件已落盘"（必做）
+3. 交接材料：report + 变更清单 + 测试输出 + commit hash
 4. main 收到验收结论（不重跑，只看）
 ```
 

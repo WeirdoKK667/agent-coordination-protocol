@@ -128,6 +128,7 @@ description: 多 agent / 多终端协作场景的协调协议——中大型项�
 3. 明确工作内容 / 范围 / 交接点：
    - read 最小契约执行（必读 vs 显式无需读）
    - 红线对照清单
+<<<<<<< HEAD
    - **核对派发单与现状**：不符处记进 handoff §派发瑕疵反向纠错（37% 的单会命中）
 4. 干活（遇范围外 bug 标 deferred，不顺手做）
 5. 交工凭证：git push + 实跑输出 + commit hash + REQ 单回填 + 红线自检
@@ -177,6 +178,22 @@ main-designer 在 dispatch 单指定方式，implementer 按指定方式跑并�
 方向不确定、或涉及数据改动可能破坏基线时，先派**最小探针单**验证命令链路与影响面，再决定大单怎么派。
 
 实战价值：一次探针单就纠出了派发方两处字段错误（把坐标当 id 用、引用了错误的队列 API），避免大单返工。
+=======
+4. 干活
+5. 交工凭证（强顺序：report → status → push）：
+   - 本地 commit → 实跑输出 → 落 report 文件（必做）
+   - 改 dispatch status: claimed → done（report 必须先落盘）
+   - git push → 报远程 hash → REQ 回填 → 红线自检
+   - 详细步骤见 references/regular-workflow.md 步骤 5
+6. 交接：用 templates/handoff-checklist.md 交下一岗
+   - 交接材料第一项 = "report 文件已落盘"（必做）
+   - 材料：report + 变更清单 + 测试输出 + commit hash
+```
+
+> **关键约束（v0.1.1 新增）**：imp 改 status: claimed → done 的**强前置条件** = report 文件已落盘。
+> 缺 report 的 status 变更视为无效，main 不验收。
+> 详见 references/lessons-learned.md（dispatch-007 RED 现场）+ templates/dispatch-file.md §交工凭证。
+>>>>>>> 1969a78 (fix(coordination): imp 改 status→done 强前置 report 落盘（v0.1.1，dispatch-007 RED 修复）)
 
 ---
 

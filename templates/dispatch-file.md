@@ -92,22 +92,44 @@ implementer 采字段写进 handoff §测试员耗时 段：开始时间 / 命�
 - **本单与 <单号> 改同一批文件** → 严格串行：claimed → in_progress → commit + push → handoff → 接下一单
 - 文件族不重叠 → 可跨线并行
 
-## 交工凭证
+## 交工凭证（强顺序：handoff → status → push）
 
-- git push + 实跑输出（PASS/FAIL 计数）
-- 报 commit hash + remote branch（**push 后再取 hash**——commit 前取会拿到上一个 commit）
-- 回填 REQ 单"已完成 + commit hash + 验收岗"
+> **铁律（v0.2.1 新增）**：implementer 改 dispatch status `in_progress → handoff` 的**强前置条件** = `.claude/coordination/active/handoff-<id>.md` 已落盘。
+> 没有 handoff 文件的 status 变更视为无效，main-designer 不验收。
+> RED 现场：dispatch-2026-09-09-007 implementer feat commit 闭环但跳过 handoff 落盘。详见 `references/lessons-learned.md`。
+
+按以下顺序执行，缺一即交接无效：
+
+1. **本地 commit**（不 push；commit message 引用 dispatch §验收标准）
+2. **实跑输出**：PASS/FAIL 计数 + 测试用例清单（按 dispatch §测试员模式 A/B/C）
+3. **落 handoff 文件**（必做）：`.claude/coordination/active/handoff-<YYYY-MM-DD>-<NNN>.md`
+   - 模板见 `templates/handoff-template.md`（含 §完成总结 / §复核点对照 / §归档建议 / §新发现问题 / §接续点 / §测试员耗时 / §派发瑕疵反向纠错 / §红线自检）
+   - 缺此文件 → status 变更无效，main-designer 不验收
+4. **改 dispatch status**：`in_progress → handoff`（回填交工 commit hash）
+   - 前置条件：handoff 文件必须已落盘（步骤 3）
+5. **git push**（handoff 落盘 + status 改完后再 push；按 §2.1 commit 锚点时序）
+6. **报远程 commit hash + remote branch**
+7. **回填 REQ 单**："已完成 + commit hash + 验收岗"
+8. **红线对照自检**：dispatch §红线 + id-card §永久不碰清单 全打勾
 
 ## 交接
 
-完成后按 templates/handoff-checklist.md 交给 <下一岗>
+handoff 落盘 + status=handoff + push 后，按 templates/handoff-checklist.md 交给 <下一岗>
 
 ## 状态
 
 - [ ] 已读身份卡
 - [ ] 已开工
+- [ ] handoff 文件已落盘（必做；status 变更的前置条件）
+- [ ] status: in_progress → handoff（回填 commit hash）
+- [ ] git push 完成
 - [ ] 已交工
 - [ ] 已交接
+
+## RED 现场（dispatch-007 教训）
+
+implementer 在 `feat commit` 闭环后跳过 handoff 落盘直接改 status，被 main-designer 验收拦截。
+后续 implementer 必须把"handoff 落盘"当作 commit 后的**强制下一步**，不是可选项。
 ```
 
 ---
@@ -116,7 +138,7 @@ implementer 采字段写进 handoff §测试员耗时 段：开始时间 / 命�
 
 ```
 .claude/coordination/
-├── active/                      # 进行中（dispatch + handoff 共存同目录）
+├── active/                      # 进行中（dispatch 与 handoff 共存同目录）
 │   ├── dispatch-<id>.md
 │   ├── handoff-<id>.md
 │   └── resume-point-<id>.md     # session 接续点
@@ -140,3 +162,4 @@ dispatch 与 handoff **同目录共存**（不分 inbox / outbox）：一个任�
 - 不要让 dispatch 长期滞留 active/——完成后归档到 archive/
 - **不要跳过 §开工前核对清单**——这是最高频翻车点
 - 不要在 §验收标准 里写省略参数的命令——默认参数可能只跑子集，拿不到全量基线
+- **不要在 handoff 落盘前改 status: in_progress → handoff**——v0.2.1 强约束，违反则 status 变更无效
